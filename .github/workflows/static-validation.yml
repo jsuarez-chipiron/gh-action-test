@@ -15,3 +15,6 @@ jobs:
 
       - name: Run a script or command
         run: echo "Running on PR to main branch!"
+
+      - name: Run a script or command 2
+        run: cat README.txt
