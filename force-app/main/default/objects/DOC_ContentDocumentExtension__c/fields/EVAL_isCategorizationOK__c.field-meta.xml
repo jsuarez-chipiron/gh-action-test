@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EVAL_isCategorizationOK__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indica si la categorización del documento se realizó de manera correcta o incorrecta. Este campo determina el estado de éxito de la categorización automática del contenido del documento.</description>
+    <externalId>false</externalId>
+    <label>Categorización Correcta</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

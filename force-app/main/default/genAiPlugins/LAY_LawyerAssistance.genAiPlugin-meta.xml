@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <aiPluginUtterances>
+        <developerName>utterance_0_1756387109857</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>utterance_0_1756387109857</masterLabel>
+        <utterance>Quiero información sobre ciertos gastos hipotecarios</utterance>
+    </aiPluginUtterances>
+    <description>Assists to a Lawyer (Salesforce User) to get responses for the question that he performs. The knowledge base of this response is stored in Salesforce</description>
+    <developerName>LAY_LawyerAssistance</developerName>
+    <genAiFunctions>
+        <functionName>LAY_Knowledge_Search</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>LAY_TopicDetection</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>Determinate the topic among using the appropriate action</description>
+        <developerName>instruction_0_1756387109849</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1756387109849</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If you cannot determinate the topic continue asking to the user to get a valid one</description>
+        <developerName>instruction_1_1756387109856</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1_1756387109856</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>Once you have a topic search in the knowledge base to reply the further questions of the user. Use the appropriate action for it</description>
+        <developerName>instruction_2_1756387109856</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_2_1756387109856</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>The lawyer will ask in Spanish</description>
+        <developerName>instruction_3_1756387109856</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_3_1756387109856</masterLabel>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <masterLabel>LAY Lawyer Assistance</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Your job is identify the topic of the conversation and then reply to the questions that the user perform</scope>
+</GenAiPlugin>

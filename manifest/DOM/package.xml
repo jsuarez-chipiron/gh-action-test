@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>DOM_CaseService</members>
+        <members>DOM_CaseExtensionService</members>
+        <members>DOM_ContentDocumentService</members>
+        <members>EVAL_EmailProcessorWithAttachments</members>
+        <members>EVAL_Config</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>EVAL_PocEmailService</members>
+        <name>EmailServicesFunction</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c.EVAL_responseTo__c</members>
+        <members>DOM_CaseExtension__c.DOM_caseId__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c-Case Extension Layout</members>
+        <members>Case-Case Layout MVP2</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtensionRecordPage</members>
+        <members>SAC_Reclamacion_CC</members>
+        <name>FlexiPage</name>
+    </types>
+    <version>60.0</version>
+</Package>

@@ -1,0 +1,14 @@
+{
+  "required" : [ "Input:question" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "Input:question" : {
+      "title" : "question",
+      "description" : "The input is a free text",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

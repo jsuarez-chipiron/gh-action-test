@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>DOC_Analysis</members>
+        <name>GenAiPromptTemplate</name>
+    </types>
+    <types>
+        <members>DOC_ContentDocumentExtension__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>DOC_ContentDocumentExtension__c.DOC_type__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_reason__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_accuracy__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_summary__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOM_caseExtension__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_status__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_contentDocumentId__c</members>
+        <members>DOC_ContentDocumentExtension__c.DOC_ContentDocumentLink__c</members>
+        <members>DOM_CaseExtension__c.DOC_toAnalyse__c</members>
+        <members>DOM_CaseExtension__c.DOC_analysedOK__c</members>
+        <members>DOM_CaseExtension__c.DOC_analysedKO__c</members>
+        <members>DOM_CaseExtension__c.DOC_status__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>DOC_DocumentService</members>
+        <members>DOC_DocumentAnalysisQueueable</members>
+        <members>DOC_ContentDocumentExtensionService</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DOC_ContentDocumentExtension__c-Content Document Extension Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>DOC_PermissionSet</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>60.0</version>
+</Package>

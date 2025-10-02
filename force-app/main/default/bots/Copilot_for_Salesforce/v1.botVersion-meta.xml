@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BotVersion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>v1</fullName>
+    <articleAnswersGPTEnabled>false</articleAnswersGPTEnabled>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>¡Hola! Soy Agentforce, un asistente de IA. Puedo hacer cosas como buscar en tus datos de Salesforce o en internet, editar tus registros de Salesforce y redactar o revisar correos electrónicos y campos. Pregúntame &quot;¿Qué más puedes hacer?&quot; para ver cómo puedo ayudarte a simplificar tu día a día.</message>
+                <messageIdentifier>c86c33cd-b8ab-46c1-bb28-2371d72b5b9d</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>a18aa0a4-2987-44be-bc17-017a7c29c926</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>d5003803-05e0-4be7-b4a0-5b8b604fe8f5</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Welcome</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Welcome</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <botDialogs>
+        <botSteps>
+            <botMessages>
+                <message>Algo salió mal. Inténtalo de nuevo.</message>
+                <messageIdentifier>df09787a-ba95-492c-b1bb-ece5523f41bd</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>5db77e98-dc77-40d5-a27a-dfb05549fe58</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <stepIdentifier>230b1c9c-a8d1-4dea-8efa-e2ffdef789d3</stepIdentifier>
+            <type>Wait</type>
+        </botSteps>
+        <developerName>Rich_Content_Error_Handling</developerName>
+        <isPlaceholderDialog>false</isPlaceholderDialog>
+        <label>Error Handler</label>
+        <showInFooterMenu>false</showInFooterMenu>
+    </botDialogs>
+    <citationsEnabled>false</citationsEnabled>
+    <conversationDefinitionPlanners>
+        <genAiPlannerName>EmployeeCopilotPlanner</genAiPlannerName>
+    </conversationDefinitionPlanners>
+    <conversationSystemDialogs>
+        <dialog>Rich_Content_Error_Handling</dialog>
+        <type>ErrorHandling</type>
+    </conversationSystemDialogs>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>currentAppName</developerName>
+        <label>Current App Name</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>currentObjectApiName</developerName>
+        <label>Current Object Api Name</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>currentPageType</developerName>
+        <label>Current Page Type</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>currentRecordId</developerName>
+        <label>Current Record Id</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>Current_Topic</developerName>
+        <label>Current Topic</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <developerName>Is_topic_setted</developerName>
+        <label>Is topic setted</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Boolean</dataType>
+        <developerName>Topic_Identified</developerName>
+        <label>Topic Identified</label>
+    </conversationVariables>
+    <copilotPrimaryLanguage>es</copilotPrimaryLanguage>
+    <entryDialog>Welcome</entryDialog>
+    <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
+    <intentV3Enabled>false</intentV3Enabled>
+    <knowledgeFallbackEnabled>false</knowledgeFallbackEnabled>
+    <smallTalkEnabled>false</smallTalkEnabled>
+    <toneType>Casual</toneType>
+</BotVersion>

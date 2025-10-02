@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set for EVAL module classes and objects</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>EVAL Permission Set</label>
+    
+    <!-- Apex Class permissions -->
+    <classAccesses>
+        <apexClass>EVAL_CaseWebServiceAnalyzer</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_CaseBatchAnalyzer</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_Config</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_EmailProcessorWithAttachments</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_EmailService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_EmailService_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <classAccesses>
+        <apexClass>EVAL_ContentDocumentExtensionController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <!-- Object permissions -->
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>DOC_ContentDocumentExtension__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    
+    <!-- Field permissions -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DOC_ContentDocumentExtension__c.EVAL_status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DOC_ContentDocumentExtension__c.EVAL_CategorizationKOFeedback__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+</PermissionSet>

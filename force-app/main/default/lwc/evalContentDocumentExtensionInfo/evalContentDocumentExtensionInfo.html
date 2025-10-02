@@ -1,0 +1,333 @@
+<template>
+    <div class="slds-card slds-m-around_small">
+        <div class="slds-card__header">
+            <h3 class="slds-card__header-title">
+                <span class="slds-text-heading_small">Document Analysis</span>
+            </h3>
+        </div>
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={isLoading}>
+                <div class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+                </div>
+            </template>
+            
+            <template if:true={hasError}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                        <lightning-icon icon-name="utility:error" size="x-small"></lightning-icon>
+                    </span>
+                    <h2>Error loading document analysis</h2>
+                </div>
+            </template>
+            
+            <template if:true={hasExtension}>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1">
+                        <!-- Document Analysis Section -->
+                        <div class="slds-m-bottom_large">
+                            <div class="slds-media slds-media_center slds-m-bottom_medium">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="utility:file" size="small" variant="inverse" class="slds-icon_container slds-icon-utility-file slds-icon_small slds-bg-brand"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h4 class="slds-text-heading_small slds-m-bottom_none">Document Analysis</h4>
+                                    <p class="slds-text-body_small slds-text-color_weak">Document type and content analysis</p>
+                                </div>
+                            </div>
+                            
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <dl class="slds-list_horizontal slds-wrap">
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Type:</dt>
+                            <dd class="slds-item_detail slds-truncate">
+                                <template if:true={extensionData.DOC_type__c}>
+                                    {extensionData.DOC_type__c}
+                                </template>
+                                <template if:false={extensionData.DOC_type__c}>
+                                    N/A
+                                </template>
+                            </dd>
+                            
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Status:</dt>
+                            <dd class="slds-item_detail slds-truncate">
+                                <template if:true={extensionData.DOC_status__c}>
+                                    {extensionData.DOC_status__c}
+                                </template>
+                                <template if:false={extensionData.DOC_status__c}>
+                                    N/A
+                                </template>
+                            </dd>
+                            
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Accuracy:</dt>
+                            <dd class="slds-item_detail slds-truncate">{formattedAccuracy}</dd>
+                            
+                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Created:</dt>
+                            <dd class="slds-item_detail slds-truncate">{formattedDate}</dd>
+                        </dl>
+                                </div>
+                        
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <template if:true={extensionData.DOC_reason__c}>
+                                        <div class="slds-m-bottom_small">
+                                            <h5 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h5>
+                                            <p class="slds-text-body_small slds-word-wrap">{extensionData.DOC_reason__c}</p>
+                            </div>
+                        </template>
+                        
+                        <template if:true={extensionData.DOC_summary__c}>
+                                        <div>
+                                            <h5 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Summary:</h5>
+                                            <p class="slds-text-body_small slds-word-wrap">{extensionData.DOC_summary__c}</p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Entity Analysis Section -->
+                        <div class="slds-m-top_large slds-border_top slds-p-top_medium">
+                            <div class="slds-media slds-media_center slds-m-bottom_medium">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="utility:user" size="small" variant="inverse" class="slds-icon_container slds-icon-utility-user slds-icon_small slds-bg-brand"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h4 class="slds-text-heading_small slds-m-bottom_none">Entity Analysis</h4>
+                                    <p class="slds-text-body_small slds-text-color_weak">Identified entities in the document</p>
+                                </div>
+                            </div>
+                            
+                            <template if:true={hasEntityData}>
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <!-- Claimant 1 -->
+                                    <template if:true={extensionData.ENT_claimant1__c}>
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                <div class="slds-media slds-media_center slds-m-bottom_small">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:user" size="x-small" class="slds-icon-text-default"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h5 class="slds-text-heading_small slds-m-bottom_none">Claimant 1</h5>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-text-body_regular slds-word-wrap slds-m-bottom_small">{extensionData.ENT_claimant1__c}</p>
+                                                <template if:true={extensionData.ENT_claimant1Reason__c}>
+                                                    <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                                                        <h6 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h6>
+                                                        <p class="slds-text-body_small slds-word-wrap">{extensionData.ENT_claimant1Reason__c}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Claimant 2 -->
+                                    <template if:true={extensionData.ENT_claimant2__c}>
+                                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                            <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                <div class="slds-media slds-media_center slds-m-bottom_small">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:user" size="x-small" class="slds-icon-text-default"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h5 class="slds-text-heading_small slds-m-bottom_none">Claimant 2</h5>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-text-body_regular slds-word-wrap slds-m-bottom_small">{extensionData.ENT_claimant2__c}</p>
+                                                <template if:true={extensionData.ENT_claimant2Reason__c}>
+                                                    <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                                                        <h6 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h6>
+                                                        <p class="slds-text-body_small slds-word-wrap">{extensionData.ENT_claimant2Reason__c}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Representative -->
+                                    <template if:true={extensionData.ENT_representative__c}>
+                                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                            <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                <div class="slds-media slds-media_center slds-m-bottom_small">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:user" size="x-small" class="slds-icon-text-default"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h5 class="slds-text-heading_small slds-m-bottom_none">Representative</h5>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-text-body_regular slds-word-wrap slds-m-bottom_small">{extensionData.ENT_representative__c}</p>
+                                                <template if:true={extensionData.ENT_representativeReason__c}>
+                                                    <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                                                        <h6 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h6>
+                                                        <p class="slds-text-body_small slds-word-wrap">{extensionData.ENT_representativeReason__c}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Firm -->
+                                    <template if:true={extensionData.ENT_firm__c}>
+                                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                            <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                <div class="slds-media slds-media_center slds-m-bottom_small">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:company" size="x-small" class="slds-icon-text-default"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h5 class="slds-text-heading_small slds-m-bottom_none">Firm</h5>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-text-body_regular slds-word-wrap slds-m-bottom_small">{extensionData.ENT_firm__c}</p>
+                                                <template if:true={extensionData.ENT_firmReason__c}>
+                                                    <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                                                        <h6 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h6>
+                                                        <p class="slds-text-body_small slds-word-wrap">{extensionData.ENT_firmReason__c}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <!-- Others -->
+                                    <template if:true={extensionData.ENT_others__c}>
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                                                <div class="slds-media slds-media_center slds-m-bottom_small">
+                                                    <div class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:groups" size="x-small" class="slds-icon-text-default"></lightning-icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <h5 class="slds-text-heading_small slds-m-bottom_none">Others</h5>
+                                                    </div>
+                                                </div>
+                                                <p class="slds-text-body_regular slds-word-wrap slds-m-bottom_small">{extensionData.ENT_others__c}</p>
+                                                <template if:true={extensionData.ENT_othersReason__c}>
+                                                    <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                                                        <h6 class="slds-text-color_weak slds-text-body_small slds-m-bottom_x-small">Reason:</h6>
+                                                        <p class="slds-text-body_small slds-word-wrap">{extensionData.ENT_othersReason__c}</p>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                            
+                            <template if:false={hasEntityData}>
+                                <div class="slds-text-align_center slds-p-around_large">
+                                    <div class="slds-media slds-media_center">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="utility:info" size="small" class="slds-icon-text-weak"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <p class="slds-text-color_weak slds-text-body_regular">No entity analysis available for this document.</p>
+                                        </div>
+                                    </div>
+                            </div>
+                        </template>
+                        </div>
+                        
+                        <!-- Evaluation Section -->
+                        <div class="slds-m-top_large slds-border_top slds-p-top_medium">
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <div class="slds-col slds-size_1-of-1">
+                                    <h4 class="slds-text-heading_small slds-m-bottom_small">Evaluación de Categorización</h4>
+                                    
+                                    <template if:false={isEditing}>
+                                        <div class="slds-grid slds-wrap slds-gutters">
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <dl class="slds-list_horizontal slds-wrap">
+                                                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Estado:</dt>
+                                                    <dd class="slds-item_detail slds-truncate">{evaluationStatus}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        
+                                        <template if:true={extensionData.EVAL_CategorizationKOFeedback__c}>
+                                            <div class="slds-m-top_small">
+                                                <dt class="slds-text-color_weak slds-m-bottom_x-small">Motivo de categorización incorrecta:</dt>
+                                                <dd class="slds-text-longform">
+                                                    <p class="slds-text-body_regular slds-word-wrap">{extensionData.EVAL_CategorizationKOFeedback__c}</p>
+                                                </dd>
+                                            </div>
+                                        </template>
+                                        
+                                        <div class="slds-m-top_medium slds-text-align_left">
+                                            <lightning-button 
+                                                label="Editar Evaluación" 
+                                                variant="brand" 
+                                                size="small"
+                                                onclick={handleEdit}>
+                                            </lightning-button>
+                                        </div>
+                                    </template>
+                                    
+                                    <template if:true={isEditing}>
+                                        <div class="slds-form slds-form_stacked">
+                                            <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="status-picklist">
+                                                    <abbr class="slds-required" title="required">*</abbr>Estado de la evaluación
+                                                </label>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-combobox 
+                                                        id="status-picklist"
+                                                        options={evaluationOptions}
+                                                        value={evaluationData.status}
+                                                        onchange={handleStatusChange}
+                                                        placeholder="Selecciona un estado">
+                                                    </lightning-combobox>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="feedback-textarea">
+                                                    Motivo de categorización incorrecta
+                                                </label>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-textarea 
+                                                        id="feedback-textarea"
+                                                        value={evaluationData.feedback}
+                                                        onchange={handleFeedbackChange}
+                                                        placeholder="Describe el motivo por el cual la categorización no fue correcta...">
+                                                    </lightning-textarea>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="slds-form-element slds-m-top_medium">
+                                                <div class="slds-button-group">
+                                                    <lightning-button 
+                                                        label="Guardar" 
+                                                        variant="brand" 
+                                                        onclick={handleSave}>
+                                                    </lightning-button>
+                                                    <lightning-button 
+                                                        label="Cancelar" 
+                                                        variant="neutral" 
+                                                        onclick={handleCancel}>
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+            <template if:false={hasExtension}>
+                <template if:false={isLoading}>
+                    <div class="slds-text-align_center slds-p-around_medium">
+                        <p class="slds-text-color_weak">No document analysis available for this content document.</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

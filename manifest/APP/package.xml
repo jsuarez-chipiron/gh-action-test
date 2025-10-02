@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>APP_CaseDocumentGrounding</members>
+        <members>APP_CaseExtensionService</members>
+        <members>APP_ContentDocumentExtensionController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>APP_CaseExtensionTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>60.0</version>
+</Package>

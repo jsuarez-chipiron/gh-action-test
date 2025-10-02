@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>An_lisis_de_documentos_PTE_Identidad</fullName>
+    <columns>DOC_ContentDocumentLink__c</columns>
+    <columns>DOC_summary__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EVAL_status__c</field>
+        <operation>equals</operation>
+        <value>,Pendiente de evaluación</value>
+    </filters>
+    <filters>
+        <field>DOC_status__c</field>
+        <operation>notEqual</operation>
+        <value>Error</value>
+    </filters>
+    <filters>
+        <field>DOC_type__c</field>
+        <operation>equals</operation>
+        <value>Documento de Identidad</value>
+    </filters>
+    <label>Análisis de documentos PTE - Identidad</label>
+</ListView>

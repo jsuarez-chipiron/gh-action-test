@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Reply to the user questions. Use this action if the topic is &quot;Dia Dia&quot;</description>
+    <developerName>LAY_Knowledge_Search_Dia_Dia</developerName>
+    <masterLabel>LAY Knowledge Search Dia Dia</masterLabel>
+    <templateVersions>
+        <content>###
+INSTRUCCIONES
+
+1. Analiza la consulta: Lee y comprende cuidadosamente la pregunta o el problema del usuario de la sección PREGUNTA.
+2. Busca en el CONOCIMIENTO: Revisa el CONOCIMIENTO de la empresa proporcionado para encontrar información relevante.
+3. Evalúa la información: Determina si la información disponible en la sección CONOCIMIENTO es suficiente para responder a la PREGUNTA.
+4. Formula la respuesta: Para generar una contestación al usuario, debes seguir estas reglas:
+ a. Encuentra el/los fragmento(s) de artículo más relevante(s) para responder a la consulta del usuario y extrae VERBATIM el ID del artículo para establecer el campo `&lt;source_id&gt;` en el JSON de respuesta. Si no puedes encontrar el artículo relevante, establece `&lt;source_id&gt;` en NINGUNO.
+ b. Utiliza el fragmento de artículo relevante para generar la respuesta que conteste exactamente a la pregunta del usuario y establece el campo `&lt;generated_response&gt;`.
+ c. Si la solicitud del usuario no puede ser respondida con el conocimiento proporcionado, establece el `&lt;source_id&gt;` en NINGUNO y `&lt;generated_response&gt;` en &quot;Lo siento, no puedo encontrar una respuesta basada en los artículos disponibles.&quot;
+5. Refina y entrega: Asegúrate de que tu respuesta sea educada, profesional y concisa.
+6. Revisa la respuesta: Asegúrate de que has seguido todas las instrucciones anteriores, respondes en el formato de salida deseado y te ciñes estrictamente al CONOCIMIENTO proporcionado para formular tu respuesta.
+7. Indica SIEMPRE la fuente de la que sacas la información
+8. Indica SIEMPRE la página del documento de la que sacas la información
+
+###
+CONOCIMIENTO:
+Protocolo de usura de tarjetas: {!$EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0.results}
+Compendio de Buenas Prácticas Bancarias del Banco de España: {!$EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4.results}
+Comentarios de los abogados de Caixa Bank sobre el Compendio de Buenas Prácticas Bancarias: {!$EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79.results}
+
+###
+PREGUNTA:
+{!$Input:question}
+
+###
+Respuesta:
+</content>
+        <inputs>
+            <apiName>question</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>question</masterLabel>
+            <referenceName>Input:question</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_1Cx_QgNe716ffd4</definition>
+            <label>File_LAY_CaixaBank</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</definition>
+            <label>File_LAY_CaixaBank_Analisis</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</definition>
+            <label>File_LAY_CaixaBank_DiaDia</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <templateVersions>
+        <content>###
+INSTRUCCIONES
+
+1. Analiza la consulta: Lee y comprende cuidadosamente la pregunta o el problema del usuario de la sección PREGUNTA.
+2. Busca en el CONOCIMIENTO: Revisa el CONOCIMIENTO de la empresa proporcionado para encontrar información relevante.
+3. Evalúa la información: Determina si la información disponible en la sección CONOCIMIENTO es suficiente para responder a la PREGUNTA.
+4. Formula la respuesta: Para generar una contestación al usuario, debes seguir estas reglas:
+ a. Encuentra el/los fragmento(s) de artículo más relevante(s) para responder a la consulta del usuario y extrae VERBATIM el ID del artículo para establecer el campo `&lt;source_id&gt;` en el JSON de respuesta. Si no puedes encontrar el artículo relevante, establece `&lt;source_id&gt;` en NINGUNO.
+ b. Utiliza el fragmento de artículo relevante para generar la respuesta que conteste exactamente a la pregunta del usuario y establece el campo `&lt;generated_response&gt;`.
+ c. Si la solicitud del usuario no puede ser respondida con el conocimiento proporcionado, establece el `&lt;source_id&gt;` en NINGUNO y `&lt;generated_response&gt;` en &quot;Lo siento, no puedo encontrar una respuesta basada en los artículos disponibles.&quot;
+5. Refina y entrega: Asegúrate de que tu respuesta sea educada, profesional y concisa.
+6. Revisa la respuesta: Asegúrate de que has seguido todas las instrucciones anteriores, respondes en el formato de salida deseado y te ciñes estrictamente al CONOCIMIENTO proporcionado para formular tu respuesta.
+7. Indica SIEMPRE la fuente de la que sacas la información
+8. Indica SIEMPRE la página del documento de la que sacas la información
+
+###
+CONOCIMIENTO:
+Protocolo de usura de tarjetas: {!$EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0.results}
+Compendio de Buenas Prácticas Bancarias del Banco de España: {!$EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4.results}
+Comentarios de los abogados de Caixa Bank sobre el Compendio de Buenas Prácticas Bancarias: {!$EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79.results}
+
+###
+PREGUNTA:
+{!$Input:question}
+
+###
+Respuesta:
+</content>
+        <inputs>
+            <apiName>question</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>question</masterLabel>
+            <referenceName>Input:question</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_1Cx_QgNe716ffd4</definition>
+            <label>File_LAY_CaixaBank</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</definition>
+            <label>File_LAY_CaixaBank_Analisis</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</definition>
+            <label>File_LAY_CaixaBank_DiaDia</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <templateVersions>
+        <content>###
+INSTRUCCIONES
+
+1. Analiza la consulta: Lee y comprende cuidadosamente la pregunta o el problema del usuario de la sección PREGUNTA.
+2. Busca en el CONOCIMIENTO: Revisa el CONOCIMIENTO de la empresa proporcionado para encontrar información relevante.
+3. Evalúa la información: Determina si la información disponible en la sección CONOCIMIENTO es suficiente para responder a la PREGUNTA.
+4. Formula la respuesta: Para generar una contestación al usuario, debes seguir estas reglas:
+ a. Encuentra el/los fragmento(s) de artículo más relevante(s) para responder a la consulta del usuario y extrae VERBATIM el ID del artículo para establecer el campo `&lt;source_id&gt;` en el JSON de respuesta. Si no puedes encontrar el artículo relevante, establece `&lt;source_id&gt;` en NINGUNO.
+ b. Utiliza el fragmento de artículo relevante para generar la respuesta que conteste exactamente a la pregunta del usuario y establece el campo `&lt;generated_response&gt;`.
+ c. Si la solicitud del usuario no puede ser respondida con el conocimiento proporcionado, establece el `&lt;source_id&gt;` en NINGUNO y `&lt;generated_response&gt;` en &quot;Lo siento, no puedo encontrar una respuesta basada en los artículos disponibles.&quot;
+5. Refina y entrega: Asegúrate de que tu respuesta sea educada, profesional y concisa.
+6. Revisa la respuesta: Asegúrate de que has seguido todas las instrucciones anteriores, respondes en el formato de salida deseado y te ciñes estrictamente al CONOCIMIENTO proporcionado para formular tu respuesta.
+7. Indica SIEMPRE la fuente de la que sacas la información
+8. Indica SIEMPRE la página del documento de la que sacas la información
+
+###
+CONOCIMIENTO:
+Protocolo de usura de tarjetas: {!$EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0.results}
+Compendio de Buenas Prácticas Bancarias del Banco de España: {!$EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4.results}
+Comentarios de los abogados de Caixa Bank sobre el Compendio de Buenas Prácticas Bancarias: {!$EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79.results}
+
+###
+PREGUNTA:
+{!$Input:question}
+
+###
+Respuesta:
+</content>
+        <inputs>
+            <apiName>question</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>question</masterLabel>
+            <referenceName>Input:question</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_1Cx_QgNe716ffd4</definition>
+            <label>File_LAY_CaixaBank</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</definition>
+            <label>File_LAY_CaixaBank_Analisis</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</definition>
+            <label>File_LAY_CaixaBank_DiaDia</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <templateVersions>
+        <content>###
+INSTRUCCIONES
+
+1. Analiza la consulta: Lee y comprende cuidadosamente la pregunta o el problema del usuario de la sección PREGUNTA.
+2. Busca en el CONOCIMIENTO: Revisa el CONOCIMIENTO de la empresa proporcionado para encontrar información relevante.
+3. Evalúa la información: Determina si la información disponible en la sección CONOCIMIENTO es suficiente para responder a la PREGUNTA.
+4. Formula la respuesta: Para generar una contestación al usuario, debes seguir estas reglas:
+ a. Encuentra el/los fragmento(s) de artículo más relevante(s) para responder a la consulta del usuario y extrae VERBATIM el ID del artículo para establecer el campo `&lt;source_id&gt;` en el JSON de respuesta. Si no puedes encontrar el artículo relevante, establece `&lt;source_id&gt;` en NINGUNO.
+ b. Utiliza el fragmento de artículo relevante para generar la respuesta que conteste exactamente a la pregunta del usuario y establece el campo `&lt;generated_response&gt;`.
+ c. Si la solicitud del usuario no puede ser respondida con el conocimiento proporcionado, establece el `&lt;source_id&gt;` en NINGUNO y `&lt;generated_response&gt;` en &quot;Lo siento, no puedo encontrar una respuesta basada en los artículos disponibles.&quot;
+5. Refina y entrega: Asegúrate de que tu respuesta sea educada, profesional y concisa.
+6. Revisa la respuesta: Asegúrate de que has seguido todas las instrucciones anteriores, respondes en el formato de salida deseado y te ciñes estrictamente al CONOCIMIENTO proporcionado para formular tu respuesta.
+7. Indica SIEMPRE la fuente de la que sacas la información
+8. Indica SIEMPRE la página del documento de la que sacas la información
+
+###
+CONOCIMIENTO:
+Protocolo de usura de tarjetas: {!$EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0.results}
+Compendio de Buenas Prácticas Bancarias del Banco de España: {!$EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4.results}
+Comentarios de los abogados de Caixa Bank sobre el Compendio de Buenas Prácticas Bancarias: {!$EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79.results}
+
+###
+PREGUNTA:
+{!$Input:question}
+
+###
+Respuesta:
+</content>
+        <inputs>
+            <apiName>question</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>question</masterLabel>
+            <referenceName>Input:question</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_1Cx_QgNe716ffd4</definition>
+            <label>File_LAY_CaixaBank</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_1Cx_QgNe716ffd4</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</definition>
+            <label>File_LAY_CaixaBank_Analisis</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_Analisis_1Cx_QgN3bfa1e79</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</definition>
+            <label>File_LAY_CaixaBank_DiaDia</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:question}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_LAY_CaixaBank_DiaDia_1Cx_QgNd99dfda0</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
