@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EVAL_CategorizationKOFeedback__c</fullName>
+    <description>Campo de texto largo donde se debe guardar el motivo específico por el cual la categorización del documento no fue correcta. Este campo permite documentar los errores o problemas encontrados durante el proceso de análisis automático.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>false</externalId>
+    <label>Motivo de categorización incorrecta</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

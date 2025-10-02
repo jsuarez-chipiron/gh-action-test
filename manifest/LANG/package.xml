@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>DOM_CaseExtensionService</members>
+        <members>DOM_CaseService</members>
+        <members>LANG_LangService</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c.LANG_lang__c</members>
+        <members>DOM_CaseExtension__c.LANG_reason__c</members>
+        <members>DOM_CaseExtension__c.LANG_accuracy__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>LANG_PermissionSet</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c-Case Extension Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>LANG_Analysis</members>
+        <name>GenAiPromptTemplate</name>
+    </types>
+    <version>64.0</version>
+</Package>

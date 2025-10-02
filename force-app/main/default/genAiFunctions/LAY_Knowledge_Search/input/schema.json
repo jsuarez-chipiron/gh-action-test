@@ -1,0 +1,28 @@
+{
+  "required" : [ "Input:question", "Input:topic" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "Input:question" : {
+      "title" : "question",
+      "description" : "The question made for the end user",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "Input:topic" : {
+      "title" : "topic",
+      "description" : "This is the topic used for filtering the searchable documents",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "citationMode" : {
+      "title" : "Citation Mode",
+      "description" : "Select Citation Mode",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>EVAL_CaseBatchAnalyzer</members>
+        <members>EVAL_CaseWebServiceAnalyzer</members>
+        <members>EVAL_ContentDocumentExtensionController</members>
+        <members>EVAL_EmailProcessorWithAttachments</members>
+        <members>EVAL_EmailService</members>
+        <members>EVAL_EmailService_Test</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>evalContentDocumentExtensionInfo</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <version>58.0</version>
+</Package>

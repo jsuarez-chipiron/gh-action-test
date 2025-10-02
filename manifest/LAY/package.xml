@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>LAY_KnowledgeSearch</members>
+        <members>LAY_Test1</members>
+        <members>LAY_TopicDetection</members>
+        <name>GenAiPromptTemplate</name>
+    </types>
+    <types>
+        <members>Copilot_for_Salesforce</members>
+        <name>Bot</name>
+    </types>
+    <types>
+        <members>LAY_LawyerAssistance</members>
+        <name>GenAiPlugin</name>
+    </types>
+    <types>
+      <members>LAY_Knowledge_Search</members>
+      <members>LAY_TopicDetection</members>
+      <name>GenAiFunction</name>
+   </types>
+    <version>60.0</version>
+</Package> 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>SPAM_SpamService</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>SPAM_Analysis</members>
+        <name>GenAiPromptTemplate</name>
+    </types>
+    <types>
+        <members>SPAM_PermissionSet</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>DOM_CaseExtension__c.SPAM_isSpam__c</members>
+        <members>DOM_CaseExtension__c.SPAM_Accuracy__c</members>
+        <members>DOM_CaseExtension__c.SPAM_Reason__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>60.0</version>
+</Package> 

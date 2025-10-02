@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>DOC_ContentDocumentExtension__c.ENT_claimant1__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_claimant1Reason__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_claimant2__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_claimant2Reason__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_representative__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_representativeReason__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_firm__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_firmReason__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_others__c</members>
+        <members>DOC_ContentDocumentExtension__c.ENT_othersReason__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>ENT_EntityService</members>
+        <members>ENT_EntityAnalysisQueueable</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>ENT_PermissionSet</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>60.0</version>
+</Package>

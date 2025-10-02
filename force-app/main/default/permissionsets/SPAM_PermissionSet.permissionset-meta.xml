@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set for managing spam detection fields on DOM_CaseExtension object</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DOM_CaseExtension__c.SPAM_Accuracy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DOM_CaseExtension__c.SPAM_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DOM_CaseExtension__c.SPAM_isSpam__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>SPAM Permission Set</label>
+</PermissionSet>

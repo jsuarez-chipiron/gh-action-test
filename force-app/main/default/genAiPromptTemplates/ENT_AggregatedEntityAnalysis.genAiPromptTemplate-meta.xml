@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <developerName>ENT_AggregatedEntityAnalysis</developerName>
+    <masterLabel>ENT_AggregatedEntityAnalysis</masterLabel>
+    <templateVersions>
+        <content>1 - Objetivo
+Tu tarea es analizar el JSON de entrada, que contiene entidades extraídas de múltiples documentos y correos electrónicos de un mismo caso. Debes aplicar las reglas de identificación de entidades para consolidar la información y generar un único objeto JSON que identifique correctamente al reclamante final, su representante y el bufete de abogados, si existen.
+
+2 - Reglas de Identificación de Entidades
+Debes seguir estrictamente las siguientes reglas, basadas en el protocolo de gestión de reclamaciones:
+
+2.1 - Identificación del Reclamante (claimant):
+- El reclamante es siempre la persona titular del derecho o la afectada por el perjuicio, es decir, el cliente final.
+- Si una persona actúa en nombre de un tercero (por ejemplo, un abogado representando a un cliente), el reclamante es el representado (el cliente) y no el representante (el abogado).
+- Si un escrito representa a un grupo de personas con operaciones individuales (ej. varios clientes con un abogado común para gastos hipotecarios), debes identificar a cada persona del grupo como un reclamante (claimant1, claimant2, etc.).
+- Si el escrito es en nombre de una persona jurídica, la persona jurídica es el reclamante.
+
+2.2 - Identificación del Representante (representative):
+- El representante es la persona física que actúa en nombre del reclamante (ej. el abogado, un apoderado, un familiar, etc.).
+
+2.3 - Identificación del Bufete (firm):
+- El bufete (firm) es la persona jurídica o despacho al que pertenece el representante.
+
+3 - Proceso de Consolidación:
+- Debes examinar el objeto entityAnalysis de cada uno de los documentos (documents) en el JSON de entrada.
+- Sintetiza la información de todos los documentos para eliminar redundancias y corregir posibles identificaciones erróneas iniciales. Por ejemplo, si un documento identifica erróneamente a un bufete como claimant1, pero otro documento lo identifica correctamente como firm y al cliente como claimant1, la salida final debe reflejar la identificación correcta.
+- Los campos ...Reason en la salida deben ser una justificación concisa y consolidada de por qué se asignó cada entidad a su rol, basándose en la evidencia combinada de todos los documentos.
+
+3 - Formato de Entrada
+Recibirás un JSON con la siguiente estructura:
+{
+ &quot;caseId&quot;: &quot;...&quot;,
+ &quot;totalDocuments&quot;: 2,
+ &quot;caseExtensionId&quot;: &quot;...&quot;,
+ &quot;documents&quot;: [
+  {
+   &quot;id&quot;: &quot;...&quot;,
+   &quot;name&quot;: &quot;Documento 1&quot;,
+   &quot;contentDocumentId&quot;: &quot;...&quot;,
+   &quot;entityAnalysis&quot;: {
+    &quot;claimant1&quot;: &quot;Nombre del Cliente A&quot;,
+    &quot;claimant1Reason&quot;: &quot;El cliente A se identifica como el titular del producto en el documento.&quot;,
+    &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+    &quot;representativeReason&quot;: &quot;El Abogado Pérez firma en nombre del Cliente A.&quot;,
+    &quot;firm&quot;: &quot;Bufete Legal XYZ&quot;,
+    &quot;firmReason&quot;: &quot;El documento tiene el membrete de &apos;Bufete Legal XYZ&apos;.&quot;
+   }
+  },
+  {
+   &quot;id&quot;: &quot;...&quot;,
+   &quot;name&quot;: &quot;Documento 2&quot;,
+   &quot;contentDocumentId&quot;: &quot;...&quot;,
+   &quot;entityAnalysis&quot;: {
+    &quot;claimant1&quot;: &quot;Bufete Legal XYZ&quot;,
+    &quot;claimant1Reason&quot;: &quot;El escrito lo remite el bufete.&quot;,
+    &quot;claimant2&quot;: &quot;Cliente A&quot;,
+    &quot;claimant2Reason&quot;: &quot;Se menciona al Cliente A como el afectado.&quot;,
+    &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+    &quot;representativeReason&quot;: &quot;Firma del letrado.&quot;
+   }
+  }
+ ],
+ &quot;emailMessages&quot;: {
+  &quot;caseId&quot;: &quot;...&quot;,
+  &quot;totalEmails&quot;: 1,
+  &quot;emails&quot;: [
+   {
+    &quot;id&quot;: &quot;...&quot;,
+    &quot;fromAddress&quot;: &quot;abogado.perez@bufetelegal.xyz&quot;,
+    &quot;textBody&quot;: &quot;Adjunto reclamación en nombre de mi cliente, el Sr. Cliente A.&quot;
+   }
+  ]
+ }
+}
+
+4 - Instrucciones
+- Revisa los objetos entityAnalysis de todos los elementos del array documents.
+- Utiliza la información de emailMessages para corroborar las relaciones entre las entidades (ej. la dirección del remitente o el cuerpo del correo).
+- Aplica las Reglas de Identificación de Entidades para determinar quién es el verdadero reclamante, el representante y el bufete.
+- Construye el JSON de salida consolidado. Asegúrate de que el reclamante sea el cliente final y no el intermediario.
+
+5 - Formato de Salida
+Tu respuesta debe ser exclusivamente un objeto JSON con la siguiente estructura:
+{
+ &quot;claimant1&quot;: &quot;...&quot;,
+ &quot;claimant1Reason&quot;: &quot;...&quot;,
+ &quot;claimant2&quot;: &quot;...&quot;,
+ &quot;claimant2Reason&quot;: &quot;...&quot;,
+ &quot;representative&quot;: &quot;...&quot;,
+ &quot;representativeReason&quot;: &quot;...&quot;,
+ &quot;firm&quot;: &quot;...&quot;,
+ &quot;firmReason&quot;: &quot;...&quot;,
+ &quot;others&quot;: &quot;...&quot;,
+ &quot;othersReason&quot;: &quot;...&quot;
+}
+Ejemplo de salida para la entrada anterior:
+JSON
+
+{
+ &quot;claimant1&quot;: &quot;Nombre del Cliente A&quot;,
+ &quot;claimant1Reason&quot;: &quot;Identificado como el titular del derecho y cliente final en ambos documentos y en el correo electrónico. El bufete actúa en su nombre.&quot;,
+ &quot;claimant2&quot;: null,
+ &quot;claimant2Reason&quot;: null,
+ &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+ &quot;representativeReason&quot;: &quot;Firma como representante legal en los documentos y el correo confirma que actúa en nombre del Cliente A.&quot;,
+ &quot;firm&quot;: &quot;Bufete Legal XYZ&quot;,
+ &quot;firmReason&quot;: &quot;Identificado por el membrete en el documento 1 y la dirección de correo electrónico del representante. Es la entidad que representa al reclamante.&quot;,
+ &quot;others&quot;: null,
+ &quot;othersReason&quot;: null
+}
+
+6 - JSON de entrada:
+{!$Apex:APP_CaseDocumentGrounding.Prompt}
+</content>
+        <inputs>
+            <apiName>case</apiName>
+            <definition>SOBJECT://Case</definition>
+            <masterLabel>case</masterLabel>
+            <referenceName>Input:case</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultOpenAIGPT4OmniMini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://APP_CaseDocumentGrounding</definition>
+            <parameters>
+                <definition>SOBJECT://Case</definition>
+                <isRequired>true</isRequired>
+                <parameterName>case_1</parameterName>
+                <valueExpression>{!$Input:case}</valueExpression>
+            </parameters>
+            <referenceName>Apex:APP_CaseDocumentGrounding</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <templateVersions>
+        <content>1 - Objetivo
+Tu tarea es analizar el JSON de entrada, que contiene entidades extraídas de múltiples documentos y correos electrónicos de un mismo caso. Debes aplicar las reglas de identificación de entidades para consolidar la información y generar un único objeto JSON que identifique correctamente al reclamante final, su representante y el bufete de abogados, si existen.
+
+2 - Reglas de Identificación de Entidades
+Debes seguir estrictamente las siguientes reglas, basadas en el protocolo de gestión de reclamaciones:
+
+2.1 - Identificación del Reclamante (claimant):
+- El reclamante es siempre la persona titular del derecho o la afectada por el perjuicio, es decir, el cliente final.
+- Si una persona actúa en nombre de un tercero (por ejemplo, un abogado representando a un cliente), el reclamante es el representado (el cliente) y no el representante (el abogado).
+- Si un escrito representa a un grupo de personas con operaciones individuales (ej. varios clientes con un abogado común para gastos hipotecarios), debes identificar a cada persona del grupo como un reclamante (claimant1, claimant2, etc.).
+- Si el escrito es en nombre de una persona jurídica, la persona jurídica es el reclamante.
+
+2.2 - Identificación del Representante (representative):
+- El representante es la persona física que actúa en nombre del reclamante (ej. el abogado, un apoderado, un familiar, etc.).
+
+2.3 - Identificación del Bufete (firm):
+- El bufete (firm) es la persona jurídica o despacho al que pertenece el representante.
+
+3 - Proceso de Consolidación:
+- Debes examinar el objeto entityAnalysis de cada uno de los documentos (documents) en el JSON de entrada.
+- Sintetiza la información de todos los documentos para eliminar redundancias y corregir posibles identificaciones erróneas iniciales. Por ejemplo, si un documento identifica erróneamente a un bufete como claimant1, pero otro documento lo identifica correctamente como firm y al cliente como claimant1, la salida final debe reflejar la identificación correcta.
+- Los campos ...Reason en la salida deben ser una justificación concisa y consolidada de por qué se asignó cada entidad a su rol, basándose en la evidencia combinada de todos los documentos.
+
+3 - Formato de Entrada
+Recibirás un JSON con la siguiente estructura:
+{
+ &quot;caseId&quot;: &quot;...&quot;,
+ &quot;totalDocuments&quot;: 2,
+ &quot;caseExtensionId&quot;: &quot;...&quot;,
+ &quot;documents&quot;: [
+  {
+   &quot;id&quot;: &quot;...&quot;,
+   &quot;name&quot;: &quot;Documento 1&quot;,
+   &quot;contentDocumentId&quot;: &quot;...&quot;,
+   &quot;entityAnalysis&quot;: {
+    &quot;claimant1&quot;: &quot;Nombre del Cliente A&quot;,
+    &quot;claimant1Reason&quot;: &quot;El cliente A se identifica como el titular del producto en el documento.&quot;,
+    &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+    &quot;representativeReason&quot;: &quot;El Abogado Pérez firma en nombre del Cliente A.&quot;,
+    &quot;firm&quot;: &quot;Bufete Legal XYZ&quot;,
+    &quot;firmReason&quot;: &quot;El documento tiene el membrete de &apos;Bufete Legal XYZ&apos;.&quot;
+   }
+  },
+  {
+   &quot;id&quot;: &quot;...&quot;,
+   &quot;name&quot;: &quot;Documento 2&quot;,
+   &quot;contentDocumentId&quot;: &quot;...&quot;,
+   &quot;entityAnalysis&quot;: {
+    &quot;claimant1&quot;: &quot;Bufete Legal XYZ&quot;,
+    &quot;claimant1Reason&quot;: &quot;El escrito lo remite el bufete.&quot;,
+    &quot;claimant2&quot;: &quot;Cliente A&quot;,
+    &quot;claimant2Reason&quot;: &quot;Se menciona al Cliente A como el afectado.&quot;,
+    &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+    &quot;representativeReason&quot;: &quot;Firma del letrado.&quot;
+   }
+  }
+ ],
+ &quot;emailMessages&quot;: {
+  &quot;caseId&quot;: &quot;...&quot;,
+  &quot;totalEmails&quot;: 1,
+  &quot;emails&quot;: [
+   {
+    &quot;id&quot;: &quot;...&quot;,
+    &quot;fromAddress&quot;: &quot;abogado.perez@bufetelegal.xyz&quot;,
+    &quot;textBody&quot;: &quot;Adjunto reclamación en nombre de mi cliente, el Sr. Cliente A.&quot;
+   }
+  ]
+ }
+}
+
+4 - Instrucciones
+- Revisa los objetos entityAnalysis de todos los elementos del array documents.
+- Utiliza la información de emailMessages para corroborar las relaciones entre las entidades (ej. la dirección del remitente o el cuerpo del correo).
+- Aplica las Reglas de Identificación de Entidades para determinar quién es el verdadero reclamante, el representante y el bufete.
+- Construye el JSON de salida consolidado. Asegúrate de que el reclamante sea el cliente final y no el intermediario.
+
+5 - Formato de Salida
+Tu respuesta debe ser exclusivamente un objeto JSON con la siguiente estructura:
+{
+ &quot;claimant1&quot;: &quot;...&quot;,
+ &quot;claimant1Reason&quot;: &quot;...&quot;,
+ &quot;claimant2&quot;: &quot;...&quot;,
+ &quot;claimant2Reason&quot;: &quot;...&quot;,
+ &quot;representative&quot;: &quot;...&quot;,
+ &quot;representativeReason&quot;: &quot;...&quot;,
+ &quot;firm&quot;: &quot;...&quot;,
+ &quot;firmReason&quot;: &quot;...&quot;,
+ &quot;others&quot;: &quot;...&quot;,
+ &quot;othersReason&quot;: &quot;...&quot;
+}
+Ejemplo de salida para la entrada anterior:
+JSON
+
+{
+ &quot;claimant1&quot;: &quot;Nombre del Cliente A&quot;,
+ &quot;claimant1Reason&quot;: &quot;Identificado como el titular del derecho y cliente final en ambos documentos y en el correo electrónico. El bufete actúa en su nombre.&quot;,
+ &quot;claimant2&quot;: null,
+ &quot;claimant2Reason&quot;: null,
+ &quot;representative&quot;: &quot;Abogado Pérez&quot;,
+ &quot;representativeReason&quot;: &quot;Firma como representante legal en los documentos y el correo confirma que actúa en nombre del Cliente A.&quot;,
+ &quot;firm&quot;: &quot;Bufete Legal XYZ&quot;,
+ &quot;firmReason&quot;: &quot;Identificado por el membrete en el documento 1 y la dirección de correo electrónico del representante. Es la entidad que representa al reclamante.&quot;,
+ &quot;others&quot;: null,
+ &quot;othersReason&quot;: null
+}
+
+6 - JSON de entrada:
+{!$Apex:APP_CaseDocumentGrounding.Prompt}
+</content>
+        <inputs>
+            <apiName>case</apiName>
+            <definition>SOBJECT://Case</definition>
+            <masterLabel>case</masterLabel>
+            <referenceName>Input:case</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://APP_CaseDocumentGrounding</definition>
+            <parameters>
+                <definition>SOBJECT://Case</definition>
+                <isRequired>true</isRequired>
+                <parameterName>case_1</parameterName>
+                <valueExpression>{!$Input:case}</valueExpression>
+            </parameters>
+            <referenceName>Apex:APP_CaseDocumentGrounding</referenceName>
+        </templateDataProviders>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
