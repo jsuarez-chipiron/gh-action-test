@@ -24,7 +24,7 @@ jobs:
         uses: qualityclouds/action-full-scan@1.0.0
         with:
           mode: cloud
-          token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDExNjYzMzY5YjRjNTg2NmM4YTQ2ODYyYThhNzJjMzUyZjA3ZTA4ODQ2ZWY1ZmFmMDA4ZjY0ZmIzMmU5ZDM5ZWIwN2YyZDA2ODY1Y2ZjODQiLCJpYXQiOjE3NTkzOTExOTEuMDk2MzExLCJuYmYiOjE3NTkzOTExOTEuMDk2MzE0LCJleHAiOjIwNzQ5MjM5OTEuMDkzNjU3LCJzdWIiOiIyOTk4Iiwic2NvcGVzIjpbImxpdmUtY2hlY2siXX0.wes5k6NJXyo-9PbIZpqVXkH-edh2eSlFqBgxwR4_f-CsE148aNfn88gkRpl7hYc5cdcgpJ3wiDVo83SUansYHnCfM0QQM6K3CI_cckZGw4BA4U2x_61cqz9IdmmFBLODAv6o7tFLIx7ed03ETW5p-c88CJzEKhyGZ2SJiPcrXOqhQlF-UnD2QyG3oG3ChNM37F5zhlkcrnVyz1EHViRmce3iW89CIB6i9R2O3Y7hu9rtdiy3TPKyrgETARym3BecJ0Qj4Ds-PctfJ9KhE9SlHcQopRegv_3uvCZr3WqOFpi_IaXXSA7cdInHJPNUhZWz8gNoUC78JYKw3rPUXjFpWt3k9Xx73yE3_-JL8bxHeOnBOWzCgY3bwegTPxkVUBJwpIGuDL6p14ztoNSjak5215Eo0RrYYtH-KCUGamJkjOsCgX20jCnIVmjGi_K-zlMEwKrU2dhoPDVMDprlDUrqtoiSasrSDyLzssvRcZ_1Nw_YpL7N_Jd_Sq0VM5mec26soXpMf7ThnJHr6AZTI8xnEkUTQkyOx4M60XV2QAF7x45HEcAoyz61Tj831tVVlH02_mTLlii_ICD9zq4zaaSC65RPoCcSVO2PVqsRxsrraSjsFYLGX8-iQp-4mTSbj61fCIc5i2sZ8CMxl_DqW6NKWKa1ZXmF-WYE5XBgtxqcFdU'
+          token: 'eyJ0eXAiOiJKV1QiL'
           review: True 
           allIssues: True 
           gitHubToken: 'MyGitHubToken'
